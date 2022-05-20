@@ -1,0 +1,317 @@
+#include <Stepper.h>
+
+#include <Ethernet.h>
+#include <SPI.h> //INCLUSÃO DE BIBLIOTECA
+
+
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED }; //ATRIBUIÇÃO DE ENDEREÇO MAC AO ETHERNET SHIELD W5100
+byte ip[] = { 192, 168, 1, 118 }; //COLOQUE UMA FAIXA DE IP DISPONÍVEL DO SEU ROTEADOR. EX: 192.168.1.110  **** ISSO VARIA, NO MEU CASO É: 192.168.0.175
+byte gateway[] = {192, 168, 1, 1}; //GATEWAY DE CONEXÃO (ALTERE PARA O GATEWAY DO SEU ROTEADOR)
+byte subnet[] = {255, 255, 255, 0}; //MASCARA DE REDE (ALTERE PARA A SUA MÁSCARA DE REDE)
+EthernetServer server(80); //PORTA EM QUE A CONEXÃO SERÁ FEITA
+
+const int e1 = 6;
+const int e2 = 7;
+const int e3 = 8;
+const int e4 = 9;
+
+
+
+
+const int passosPorGiro=64;
+Stepper mp(passosPorGiro,e1,e3,e2,e4);
+
+
+
+
+String readString = String(30); //VARIÁVEL PARA BUSCAR DADOS NO ENDEREÇO (URL)
+int status = 0; //DECLARAÇÃO DE VARIÁVEL DO TIPO INTEIRA(SERÁ RESPONSÁVEL POR VERIFICAR O STATUS ATUAL DO LED)
+void motor(int vel, int sentido,int loop,int tmp, int passos){
+  mp.setSpeed(vel);
+  for(int i=0;i<passos*loop;i++){
+  mp.step(passosPorGiro*sentido);
+   
+  delay(tmp);
+}
+delay(tmp*2);
+}
+const int ledPin = 2; //PINO DIGITAL UTILIZADO PELO LED
+
+
+void setup(){
+  Ethernet.begin(mac, ip, gateway, subnet); //PASSA OS PARÂMETROS PARA A FUNÇÃO QUE VAI FAZER A CONEXÃO COM A REDE
+  server.begin(); //INICIA O SERVIDOR PARA RECEBER DADOS NA PORTA 80
+  
+pinMode(ledPin, OUTPUT); //DEFINE O PINO COMO SAÍDA
+  digitalWrite(ledPin, LOW); //LED INICIA DESLIGADO
+ 
+  }
+void loop(){
+  
+EthernetClient client = server.available(); //CRIA UMA CONEXÃO COM O CLIENTE
+  if (client) { // SE EXISTE CLIENTE, FAZ
+    while (client.connected()) {//ENQUANTO EXISTIR CLIENTE CONECTADO, FAZ
+   if (client.available()) { //SE O CLIENTE ESTÁ HABILITADO, FAZ
+    char c = client.read(); //LÊ CARACTERE A CARACTERE DA REQUISIÇÃO HTTP
+    if (readString.length() < 100) //SE O ARRAY FOR MENOR QUE 100, FAZ
+      {
+        readString += c; // "readstring" VAI RECEBER OS CARACTERES LIDO
+      }  
+        if (c == '\n') { //SE ENCONTRAR "\n" É O FINAL DO CABEÇALHO DA REQUISIÇÃO HTTP
+          if (readString.indexOf("?") <0){ //SE ENCONTRAR O CARACTER "?", FAZ
+       
+          }
+          else //SENÃO,FAZ
+          
+          if (readString.indexOf("?v=1") > 0) {
+             motor(500,1,1,0,1);
+         }
+          if (readString.indexOf("?v=2") > 0) {
+             motor(500,1,1,0,2);
+         }
+          if (readString.indexOf("?v=3") > 0) {
+             motor(500,1,1,0,3);
+         }
+          if (readString.indexOf("?v=4") > 0) {
+             motor(500,1,1,0,4);
+         }
+           if (readString.indexOf("?v=5") > 0) {
+             motor(500,1,1,0,5);
+         }
+         if (readString.indexOf("?v=6") > 0) {
+             motor(500,1,1,0,6);
+         }
+         if (readString.indexOf("?v=7") > 0) {
+             motor(500,1,1,0,7);
+         }
+         if (readString.indexOf("?v=8") > 0) {
+             motor(500,1,1,0,8);
+         }
+         if (readString.indexOf("?v=9") > 0) {
+             motor(500,1,1,0,9);
+         }
+         if (readString.indexOf("?v=10") > 0) {
+             motor(500,1,1,0,10);
+         }
+         if (readString.indexOf("?v=11") > 0) {
+             motor(500,1,1,0,11);
+         }
+         if (readString.indexOf("?v=12") > 0) {
+             motor(500,1,1,0,12);
+         }
+         if (readString.indexOf("?v=13") > 0) {
+             motor(500,1,1,0,13);
+         }
+         if (readString.indexOf("?v=14") > 0) {
+             motor(500,1,1,0,14);
+         }
+         if (readString.indexOf("?v=15") > 0) {
+             motor(500,1,1,0,15);
+         }
+          if (readString.indexOf("?v=16") > 0) {
+             motor(500,1,1,0,16);
+         }
+          if (readString.indexOf("?v=17") > 0) {
+             motor(500,1,1,0,17);
+         }
+          if (readString.indexOf("?v=18") > 0) {
+             motor(500,1,1,0,18);
+         }
+          if (readString.indexOf("?v=19") > 0) {
+             motor(500,1,1,0,19);
+         }
+           if (readString.indexOf("?v=20") > 0) {
+             motor(500,1,1,0,20);
+             digitalWrite(ledPin, LOW);
+             
+         }
+         if (readString.indexOf("?v=21") > 0) {
+             motor(500,1,1,0,21);
+         }
+         if (readString.indexOf("?v=22") > 0) {
+             motor(500,1,1,0,22);
+         }
+         if (readString.indexOf("?v=23") > 0) {
+             motor(500,1,1,0,23);
+         }
+         if (readString.indexOf("?v=24") > 0) {
+             motor(500,1,1,0,24);
+         }
+         if (readString.indexOf("?v=25") > 0) {
+             motor(500,1,1,0,25);
+         }
+         if (readString.indexOf("?v=26") > 0) {
+             motor(500,1,1,0,26);
+         }
+         if (readString.indexOf("?v=27") > 0) {
+             motor(500,1,1,0,27);
+         }
+         if (readString.indexOf("?v=28") > 0) {
+             motor(500,1,1,0,28);
+         }
+         if (readString.indexOf("?v=29") > 0) {
+             motor(500,1,1,0,29);
+         }
+         if (readString.indexOf("?v=30") > 0) {
+             motor(500,1,1,0,30);
+         }
+         if (readString.indexOf("?v=31") > 0) {
+             motor(500,1,1,0,31);
+         }
+           if (readString.indexOf("?v=32") > 0) {
+             motor(500,1,1,0,32);
+          }
+          if (readString.indexOf("?v=-1") > 0) {
+             motor(500,-1,1,0,1);
+         }
+           if (readString.indexOf("?v=-2") > 0) {
+             motor(500,-1,1,0,2);
+         }
+          if (readString.indexOf("?v=-3") > 0) {
+             motor(500,-1,1,0,3);
+         }
+          if (readString.indexOf("?v=-4") > 0) {
+             motor(500,-1,1,0,4);
+         }
+          if (readString.indexOf("?v=-5") > 0) {
+             motor(500,-1,1,0,5);
+         }
+           if (readString.indexOf("?v=-6") > 0) {
+             motor(500,-1,1,0,6);
+         }
+         if (readString.indexOf("?v=-7") > 0) {
+             motor(500,-1,1,0,7);
+         }
+         if (readString.indexOf("?v=-8") > 0) {
+             motor(500,-1,1,0,8);
+         }
+         if (readString.indexOf("?v=-9") > 0) {
+             motor(500,-1,1,0,9);
+         }
+         if (readString.indexOf("?v=-10") > 0) {
+             motor(500,-1,1,0,10);
+         }
+         if (readString.indexOf("?v=-11") > 0) {
+             motor(500,-1,1,0,11);
+         }
+         if (readString.indexOf("?v=-12") > 0) {
+             motor(500,-1,1,0,12);
+         }
+         if (readString.indexOf("?v=-13") > 0) {
+             motor(500,-1,1,0,13);
+         }
+         if (readString.indexOf("?v=-14") > 0) {
+             motor(500,-1,1,0,14);
+         }
+         if (readString.indexOf("?v=-15") > 0) {
+             motor(500,-1,1,0,15);
+         }
+         if (readString.indexOf("?v=-16") > 0) {
+             motor(500,-1,1,0,16);
+         }
+          if (readString.indexOf("?v=-17") > 0) {
+             motor(500,-1,1,0,16);
+         }
+          if (readString.indexOf("?v=-18") > 0) {
+             motor(500,-1,1,0,17);
+         }
+          if (readString.indexOf("?v=-19") > 0) {
+             motor(500,-1,1,0,19);
+         }
+          if (readString.indexOf("?v=-20") > 0) {
+             motor(500,-1,1,0,20);
+          
+         }
+           if (readString.indexOf("?v=-21") > 0) {
+             motor(500,-1,1,0,21);
+         }
+         if (readString.indexOf("?v=-22") > 0) {
+             motor(500,-1,1,0,21);
+         }
+         if (readString.indexOf("?v=-23") > 0) {
+             motor(500,-1,1,0,22);
+         }
+         if (readString.indexOf("?v=-24") > 0) {
+             motor(500,-1,1,0,24);
+         }
+         if (readString.indexOf("?v=-25") > 0) {
+             motor(500,-1,1,0,25);
+         }
+         if (readString.indexOf("?v=-26") > 0) {
+             motor(500,-1,1,0,26);
+         }
+         if (readString.indexOf("?v=-27") > 0) {
+             motor(500,-1,1,0,27);
+         }
+         if (readString.indexOf("?v=-28") > 0) {
+             motor(500,-1,1,0,28);
+         }
+         if (readString.indexOf("?v=-29") > 0) {
+             motor(500,-1,1,0,29);
+         }
+         if (readString.indexOf("?v=-30") > 0) {
+             motor(500,-1,1,0,30);
+         }
+         if (readString.indexOf("?v=-31") > 0) {
+             motor(500,-1,1,0,31);
+         }
+           if (readString.indexOf("?v=-32") > 0) {
+             motor(500,-1,1,0,32);
+          }
+       
+       if(readString.indexOf("ledParam=1") >0) //SE ENCONTRAR O PARÂMETRO "ledParam=1", FAZ
+           {
+             digitalWrite(ledPin, HIGH); //LIGA O LED
+             status = 1; //VARIÁVEL RECEBE VALOR 1(SIGNIFICA QUE O LED ESTÁ LIGADO)
+           }else{ //SENÃO, FAZ
+             digitalWrite(ledPin, LOW); //DESLIGA O LED
+             status = 0; //VARIÁVEL RECEBE VALOR 0(SIGNIFICA QUE O LED ESTÁ DESLIGADO)             
+           }
+          
+          client.println("HTTP/1.1 200 OK"); //ESCREVE PARA O CLIENTE A VERSÃO DO HTTP
+          client.println("Content-Type: text/html"); //ESCREVE PARA O CLIENTE O TIPO DE CONTEÚDO(texto/html)
+          client.println("");
+          client.println("<!DOCTYPE HTML>"); //INFORMA AO NAVEGADOR A ESPECIFICAÇÃO DO HTML
+          client.println("<html>"); //ABRE A TAG "html"
+          client.println("<head>"); //ABRE A TAG "head"
+          client.println("<link rel='icon' type='image/png' href='https://blogmasterwalkershop.com.br/arquivos/artigos/sub_wifi/logo_mws.png'/>"); //DEFINIÇÃO DO ICONE DA PÁGINA
+          client.println("<title>MasterWalker Shop - Controle de Led via Web server</title>"); //ESCREVE O TEXTO NA PÁGINA
+          client.println("</head>"); //FECHA A TAG "head"
+          client.println("<body style=background-color:#ADD8E6>"); //DEFINE A COR DE FUNDO DA PÁGINA
+          client.println("<center><font color='blue'><h1>PROGRAMACAO APLICADA UCL</font></center></h1>"); //ESCREVE "MASTERWALKER SHOP" EM COR AZUL NA PÁGINA
+          client.println("<h1><center>CONTROLE MOTOR DE PASSOS</center></h1>"); //ESCREVE "CONTROLE DE LED" NA PÁGINA
+          client.println("<div><form>");
+          client.println("<h3 style=margin-left:150px;>CONTROLE</h3>");
+          client.println("<h4 style=color:red>Motor de passos</h4>Posicoes(entre -32 e 32):");
+          client.println("<input type=number id=v name=v min=-32 max=32>");
+          client.println("<input type=submit value=Enviar>");
+          client.println("<p></p></form>");
+
+           if (status == 1){ //SE VARIÁVEL FOR IGUAL A 1, FAZ
+          //A LINHA ABAIXO CRIA UM FORMULÁRIO CONTENDO UMA ENTRADA INVISÍVEL(hidden) COM O PARÂMETRO DA URL E CRIA UM BOTÃO APAGAR (CASO O LED ESTEJA LIGADO)
+          client.println("<center><form method=get name=LED><input type=hidden name=ledParam value=0 /><input type=submit value=APAGAR></form></center>");
+          }else{ //SENÃO, FAZ
+          //A LINHA ABAIXO CRIA UM FORMULÁRIO CONTENDO UMA ENTRADA INVISÍVEL(hidden) COM O PARÂMETRO DA URL E CRIA UM BOTÃO ACENDER (CASO O LED ESTEJA DESLIGADO)
+          client.println("<center><form method=get name=LED><input type=hidden name=ledParam value=1 /><input type=submit value=ACENDER></form></center>");
+          }
+          client.println("<center><font size='5'>Status atual do LED: </center>"); //ESCREVE "Status atual do LED:" NA PÁGINA
+          if (status == 1){ //SE VARIÁVEL FOR IGUAL A 1, FAZ
+              client.println("<center><font color='green' size='5'>LIGADO</center>"); //ESCREVE "LIGADO" EM COR VERDE NA PÁGINA
+          }else{ //SENÃO, FAZ
+              client.println("<center><font color='red' size='5'>DESLIGADO</center>"); //ESCREVE "DESLIGADO" EM COR VERMELHA NA PÁGINA
+          }     
+           
+
+
+          
+          client.println("<hr/>"); //TAG HTML QUE CRIA UMA LINHA HORIZONTAL NA PÁGINA
+          client.println("<hr/>"); //TAG HTML QUE CRIA UMA LINHA HORIZONTAL NA PÁGINA
+          client.println("</body>"); //FECHA A TAG "body"
+          client.println("</html>"); //FECHA A TAG "html"
+          readString=""; //A VARIÁVEL É REINICIALIZADA
+          client.stop(); //FINALIZA A REQUISIÇÃO HTTP E DESCONECTA O CLIENTE
+            }
+          }
+        }
+      }
+ }
